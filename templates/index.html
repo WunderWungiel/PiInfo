@@ -32,7 +32,7 @@
             background-attachment: fixed;
         }
 
-        .title_box {
+        .title_box, .copyright_box {
             display: table;
             background: rgba(200, 200, 200, 0.7);
             padding: 10px;
@@ -40,6 +40,11 @@
             opacity: 0.6;
             border-radius: 20px;
             margin: 15px auto 0;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
         }
 
         h1 {
@@ -85,6 +90,11 @@
         <p><b>CPU usage</b>: <span id="cpu_usage"></span>%</p>
         <p><b>Disks</b>:</p>
         <div id="disks"></div>
+    </div>
+
+    <div class="copyright_box">
+        <p>&copy; 2024 Wunder Wungiel</p>
+        <p><a href="https://github.com/WunderWungiel/PiInfo">Source code</a></p>
     </div>
 
 </body>
