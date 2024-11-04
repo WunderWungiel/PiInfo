@@ -1,48 +1,12 @@
-function set_temperature() {
+function set_value(name) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText)
-            document.getElementById("temperature").textContent = json["temperature"];
+            document.getElementById(name).textContent = json[name];
         }
     }
-    xhr.open("GET", "/api/get_temperature", true);
-    xhr.send();
-}
-
-function set_clock() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText)
-            document.getElementById("clock").textContent = json["clock"];
-        }
-    }
-    xhr.open("GET", "/api/get_clock", true);
-    xhr.send();
-}
-
-function set_gpu_clock() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText)
-            document.getElementById("gpu_clock").textContent = json["gpu_clock"];
-        }
-    }
-    xhr.open("GET", "/api/get_gpu_clock", true);
-    xhr.send();
-}
-
-function set_fan_speed() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText)
-            document.getElementById("fan_speed").textContent = json["fan_speed"];
-        }
-    }
-    xhr.open("GET", "/api/get_fan_speed", true);
+    xhr.open("GET", `/api/get_${name}`, true);
     xhr.send();
 }
 
@@ -59,18 +23,6 @@ function set_ram() {
         }
     }
     xhr.open("GET", "/api/get_ram", true);
-    xhr.send();
-}
-
-function set_cpu_usage() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText)
-            document.getElementById("cpu_usage").textContent = json["cpu_usage"];
-        }
-    }
-    xhr.open("GET", "/api/get_cpu_usage", true);
     xhr.send();
 }
 
@@ -95,15 +47,14 @@ function set_disks() {
 }
 
 function set_all_items() {
-    set_temperature();
-    set_clock();
-    set_gpu_clock();
-    set_fan_speed();
+    set_value("temperature");
+    set_value("clock");
+    set_value("gpu_clock");
+    set_value("fan_speed");
     set_ram();
-    set_cpu_usage();
+    set_value("cpu_usage");
     set_disks();
 }
 
 setInterval(set_all_items, 1000)
-
 set_all_items();
