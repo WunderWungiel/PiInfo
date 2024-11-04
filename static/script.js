@@ -34,10 +34,8 @@ function set_disks() {
             var disks_div = document.getElementById("disks");
             var html = "";
             for (var key in json) {
-                console.log(key);
                 html += `<p>${key} (mounted at ${json[key]['mountpoint']}): ${json[key]['used']} GB used (${json[key]['used_percent']}%) / ${json[key]['free']} GB free (${json[key]['free_percent']}%) / ${json[key]['total']} GB in total (100%)</p>`;
             }
-            console.log(html)
             disks_div.innerHTML = html;
 
         }
