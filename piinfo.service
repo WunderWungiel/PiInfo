@@ -1,0 +1,12 @@
+[Unit]
+Description=PiInfo
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/opt/piinfo
+ExecStart=/opt/piinfo/main.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

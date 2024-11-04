@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi Info</title>
+    <link rel="icon" href="/static/favicon.png" type="image/png">
+
+    <style>
+
+        @font-face {
+            font-family: FiraCodeRegular;
+            src: url(/static/fonts/FiraCode-Regular.ttf);
+        }
+
+        @font-face {
+            font-family: FiraCodeBold;
+            src: url(/static/fonts/FiraCode-Bold.ttf);
+        }
+
+        * {
+            font-family: FiraCodeRegular;
+        }
+
+        b {
+            font-family: FiraCodeBold;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, #121FCF, #CF1512);
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .title_box {
+            display: table;
+            background: rgba(200, 200, 200, 0.7);
+            padding: 10px;
+            margin: 5px;
+            opacity: 0.6;
+            border-radius: 20px;
+            margin: 15px auto 0;
+        }
+
+        h1 {
+            background-image: linear-gradient(to right, #121FCF,#CF1512);
+            background-clip: text;
+            color: transparent;
+            display: inline-block;
+
+        }
+
+        p b {     
+            font-size: 1.1em;
+        }
+
+        .info_box {
+            display: block;
+            background: rgba(200, 200, 200, 0.7);
+            border-radius: 20px;
+            width: 80%;
+            margin: 15px auto 0;
+            opacity: 0.6;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+    </style>
+
+    <script src="/static/script.js" defer></script>
+
+</head>
+<body>
+
+    <div class="title_box">
+        <h1>Pi Info</h1>
+    </div>
+
+    <div class="info_box">
+        <p><b>Temperature</b>: <span id="temperature"></span>°C</p>
+        <p><b>CPU clock</b>: <span id="clock"></span> MHz</p>
+        <p><b>GPU clock</b>: <span id="gpu_clock"></span> MHz</p>
+        <p><b>Fan speed</b>: <span id="fan_speed"></span> RPM</p>
+        <p><b>RAM</b>: <span id="ram_used"></span> GB used (<span id="ram_used_percent"></span>%) / <span id="ram_free"></span> GB free (<span id="ram_free_percent"></span>%) / <span id="ram_total"></span> GB in total (100%)</p>
+        <p><b>CPU usage</b>: <span id="cpu_usage"></span>%</p>
+        <p><b>Disks</b>:</p>
+        <div id="disks"></div>
+    </div>
+
+</body>
+</html>
