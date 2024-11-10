@@ -3,9 +3,9 @@ Description=PiInfo
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/opt/piinfo
-ExecStart=/opt/piinfo/main.sh
+User=wunderwungiel
+WorkingDirectory=/home/wunderwungiel/docker/piinfo
+ExecStart=/home/wunderwungiel/docker/piinfo/main.sh
 Restart=on-failure
 
 [Install]

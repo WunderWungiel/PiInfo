@@ -47,7 +47,6 @@ function set_disks() {
 function set_all_items() {
     set_value("temperature");
     set_value("clock");
-    set_value("gpu_clock");
     set_value("fan_speed");
     set_ram();
     set_value("cpu_usage");

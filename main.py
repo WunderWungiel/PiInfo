@@ -1,24 +1,21 @@
-import subprocess
 import os
-import psutil
 
-from flask import Flask, render_template, jsonify
+import psutil
+from vcgencmd import Vcgencmd
+
+from flask import Flask, render_template
 
 app = Flask(__name__)
+vcgm = Vcgencmd()
+
 
 class Info:
     def get_temperature(self):
-        result = subprocess.run("vcgencmd measure_temp", capture_output=True, text=True, shell=True)
-        return float(result.stdout.split("=")[1].replace("'C\n", ""))
+        return vcgm.measure_temp()
     
     def get_clock(self):
-        result = subprocess.run("vcgencmd measure_clock arm", capture_output=True, text=True, shell=True)
-        return round(int(result.stdout.split("=")[1]) / (1000 * 1000))
-    
-    def get_gpu_clock(self):
-        result = subprocess.run("vcgencmd measure_clock gpu", capture_output=True, text=True, shell=True)
-        return round(int(result.stdout.split("=")[1]) / (1000 * 1000))
-    
+        return round(vcgm.measure_clock("arm") / (1000 * 1000))
+        
     def get_fan_speed(self):
         files = os.listdir("/sys/devices/platform/cooling_fan/hwmon")
         if not files:
@@ -80,12 +77,6 @@ def _get_temperature():
 def _get_clock():
     return {
         "clock": info.get_clock()
-    }
-
-@app.route("/api/get_gpu_clock")
-def _get_gpu_clock():
-    return {
-        "gpu_clock": info.get_gpu_clock()
     }
 
 @app.route("/api/get_fan_speed")
