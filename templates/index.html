@@ -1,100 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pi Info</title>
     <link rel="icon" href="/static/favicon.png" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/static/style.css">
 
-    <style>
 
-        @font-face {
-            font-family: FiraCodeRegular;
-            src: url(/static/fonts/FiraCode-Regular.ttf);
-        }
-
-        @font-face {
-            font-family: FiraCodeBold;
-            src: url(/static/fonts/FiraCode-Bold.ttf);
-        }
-
-        * {
-            font-family: FiraCodeRegular;
-        }
-
-        b {
-            font-family: FiraCodeBold;
-        }
-
-        body {
-            background: linear-gradient(to bottom right, #121FCF, #CF1512);
-            background-size: cover;
-            background-attachment: fixed;
-        }
-
-        .title_box, .copyright_box {
-            display: table;
-            background: rgba(200, 200, 200, 0.7);
-            padding: 10px;
-            margin: 5px;
-            opacity: 0.6;
-            border-radius: 20px;
-            margin: 15px auto 0;
-            text-align: center;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        h1 {
-            background-image: linear-gradient(to right, #121FCF,#CF1512);
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-
-        }
-
-        p b {     
-            font-size: 1.1em;
-        }
-
-        .info_box {
-            display: block;
-            background: rgba(200, 200, 200, 0.7);
-            border-radius: 20px;
-            width: 80%;
-            margin: 15px auto 0;
-            opacity: 0.6;
-            border-radius: 20px;
-            padding: 20px;
-        }
-
-    </style>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
     <script src="/static/script.js" defer></script>
 
 </head>
 <body>
 
-    <div class="title_box">
-        <h1>Pi Info</h1>
+    <nav class="navbar navbar-dark">
+        <a class="navbar-brand ms-3" href="#">
+            <img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <span>Pi Info</span>
+        </a>
+      </nav>
+
+    <div class="container mt-3">
+
+        <ul class="list-group">
+
+            <li class="list-group-item"><i id="temperatureIcon" class="bi-thermometer"></i> <span id="temperature"></span>°C</li>
+            <li class="list-group-item"><i class="bi-cpu"></i> <span id="clock"></span> MHz</li>
+            <li class="list-group-item"><i class="fa-solid fa-fan spin"></i> <span id="fan_speed"></span> RPM</li>
+            <li class="list-group-item">
+                <i class="bi-memory"></i>
+                <div class="chart_container">
+                    <canvas id="ram_chart"></canvas>
+                </div>
+            </li>
+            <li class="list-group-item"><i class="bi-cpu"></i>
+                <div class="chart_container">
+                    <canvas id="cpu_chart"></canvas>
+                </div>
+            </li>
+
+            <li class="list-group-item">
+                <i class="bi-hdd-stack"></i>
+                <br><br>
+                <div id="disks"></div>
+            </li>
+        </ul>
     </div>
 
-    <div class="info_box">
-        <p><b>Temperature</b>: <span id="temperature"></span>°C</p>
-        <p><b>CPU clock</b>: <span id="clock"></span> MHz</p>
-        <p><b>Fan speed</b>: <span id="fan_speed"></span> RPM</p>
-        <p><b>RAM</b>: <span id="ram_used"></span> GB used (<span id="ram_used_percent"></span>%) / <span id="ram_free"></span> GB free (<span id="ram_free_percent"></span>%) / <span id="ram_total"></span> GB in total (100%)</p>
-        <p><b>CPU usage</b>: <span id="cpu_usage"></span>%</p>
-        <p><b>Disks</b>:</p>
-        <div id="disks"></div>
-    </div>
-
-    <div class="copyright_box">
-        <p>&copy; 2024 Wunder Wungiel</p>
-        <p><a href="https://github.com/WunderWungiel/PiInfo">Source code</a></p>
-    </div>
+    <footer class="text-center bg-body-tertiary">
+        <div class="text-center p-3">
+            &copy; 2024 Copyright:
+            <span class="text-body">Wunder Wungiel</span>
+            <br>
+            <a class="text-body" href="https://github.com/WunderWungiel/PiInfo">Source code</a>
+        </div>
+    </footer>
 
 </body>
 </html>

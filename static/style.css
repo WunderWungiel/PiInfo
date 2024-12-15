@@ -1,0 +1,43 @@
+@font-face {
+    font-family: FiraCodeRegular;
+    src: url(/static/fonts/FiraCode-Regular.ttf);
+}
+
+@font-face {
+    font-family: FiraCodeBold;
+    src: url(/static/fonts/FiraCode-Bold.ttf);
+}
+
+* {
+    font-family: FiraCodeRegular;
+}
+
+b, strong {
+    font-family: FiraCodeBold;
+}
+
+nav a span {
+    background-image: linear-gradient(to right, #121FCF,#CF1512);
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+
+}
+
+.chart_container {
+    height: 150px;
+}
+
+.spin {
+    animation: spin 2s linear infinite;
+}
+
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
