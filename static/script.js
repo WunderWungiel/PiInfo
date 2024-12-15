@@ -83,7 +83,7 @@ cpu_chart.options.plugins.tooltip.callbacks.label = (context) => { return ` ${co
 function set_all_items() {
     set_temperature();
     set_value("clock");
-    set_value("fan_speed");
+    set_fan();
     set_ram(ram_chart);
     set_cpu(cpu_chart);
     set_disks();
