@@ -69,7 +69,7 @@ info = Info()
 @app.route("/")
 def _root():
 
-    return render_template("index.html", kernel=info.get_kernel())
+    return render_template("index.html", kernel=info.get_kernel(), disks=info.get_disks())
 
 @app.route("/api/get_temperature")
 def _get_temperature():

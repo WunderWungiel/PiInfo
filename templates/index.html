@@ -56,8 +56,23 @@
 
             <li class="list-group-item">
                 <i class="bi-hdd-stack"></i>
-                <br><br>
-                <div id="disks"></div>
+                <!-- <br><br> -->
+                <div id="disks" class="container">
+                    <div class="row">
+                        {% for key, disk in disks.items() %}
+                        <div class="col">
+                            <strong>{{ key }}</strong>
+                            <br>
+                            ({{ disk['total'] }} GB)
+                            <br>
+                            <code>{{ disk['mountpoint'] }}</code>
+                            <div class="chart_container mt-3">
+                                <canvas data-disk-id="{{ key }}" width="150" height="150"></canvas>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </li>
         </ul>
     </div>
