@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 import psutil
 from vcgencmd import Vcgencmd
@@ -10,6 +11,9 @@ vcgm = Vcgencmd()
 
 
 class Info:
+    def get_kernel(self):
+        return subprocess.run(["uname", "-r"], capture_output=True, text=True).stdout.strip()
+    
     def get_temperature(self):
         return vcgm.measure_temp()
     
@@ -23,7 +27,7 @@ class Info:
         file_path = os.path.join("/sys/devices/platform/cooling_fan/hwmon", files[0], "fan1_input")
         with open(file_path, "r") as f:
             return int(f.read().strip())
-        
+
     def get_ram(self):
 
         ram_info = psutil.virtual_memory()
@@ -65,7 +69,7 @@ info = Info()
 @app.route("/")
 def _root():
 
-    return render_template("index.html")
+    return render_template("index.html", kernel=info.get_kernel())
 
 @app.route("/api/get_temperature")
 def _get_temperature():

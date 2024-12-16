@@ -27,12 +27,21 @@
       </nav>
 
     <div class="container mt-3">
-
         <ul class="list-group">
 
-            <li class="list-group-item"><i id="temperatureIcon" class="bi-thermometer"></i> <span id="temperature"></span>°C</li>
-            <li class="list-group-item"><i class="bi-cpu"></i> <span id="clock"></span> MHz</li>
-            <li class="list-group-item"><i class="fa-solid fa-fan spin"></i> <span id="fan_speed"></span> RPM</li>
+            <li class="list-group-item">
+                <i class="fa-solid fa-microchip"></i>
+                <span id="kernel">{{ kernel }}</span>
+            </li>
+            <li class="list-group-item">
+                <i id="temperatureIcon" class="bi-thermometer"></i> <span id="temperature"></span>°C
+            </li>
+            <li class="list-group-item">
+                <i class="bi-cpu"></i> <span id="clock"></span> MHz
+            </li>
+            <li class="list-group-item">
+                <i id="fanIcon" class="fa-solid fa-fan"></i> <span id="fan_speed"></span> RPM
+            </li>
             <li class="list-group-item">
                 <i class="bi-memory"></i>
                 <div class="chart_container">

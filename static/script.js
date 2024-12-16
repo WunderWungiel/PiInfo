@@ -6,9 +6,13 @@ function set_value(name) {
 
 function set_fan() {
     $.get(`/api/get_fan_speed`, function (json) {
-        const fan_speed = json["fan_speed"];
-        $("#" + "fan_speed").text(fan_speed);
-        (fan_speed == 0) ? $("#fanIcon").removeClass("spin") : $("#fanIcon").addClass("spin");
+        const fan_speed = parseInt(json["fan_speed"]);
+        $("#fan_speed").text(fan_speed);
+        if (fan_speed > 0) {
+            $("#fanIcon").css("animation", "spin " + ((1000/fan_speed) + 0.5).toString() + "s linear infinite");
+        } else {
+            $("#fanIcon").css("animation", "none");
+        }
     })
 }
 

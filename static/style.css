@@ -28,11 +28,6 @@ nav a span {
     height: 150px;
 }
 
-.spin {
-    animation: spin 2s linear infinite;
-}
-
-
 @keyframes spin {
     0% {
         transform: rotate(0deg);
