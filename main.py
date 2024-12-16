@@ -50,19 +50,23 @@ class Info:
         disks_list = psutil.disk_partitions()
         for disk in disks_list:
             
-            path, mountpoint = disk[0], disk[1]
+            device, mountpoint = disk[0], disk[1]
             usage = psutil.disk_usage(mountpoint)
 
-            info[path] = {
+            info[mountpoint] = {
                 "total": round(usage[0] / (1024 * 1024 * 1024), 2),
                 "used": round(usage[1] / (1024 * 1024 * 1024), 2),
                 "free": round(usage[2] / (1024 * 1024 * 1024), 2),
                 "used_percent": round(usage[3]),
                 "free_percent": round(100 - usage[3]),
-                "mountpoint": mountpoint
+                "device": device
             }
 
-        return info
+        sorted_info = {"/": info["/"]}
+        info.pop("/")
+        sorted_info = sorted_info | info
+
+        return sorted_info
 
 info = Info()
 
