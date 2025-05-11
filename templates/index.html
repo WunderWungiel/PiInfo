@@ -24,22 +24,36 @@
             <img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
             <span>Pi Info</span>
         </a>
+        <!-- <button type="button" id="themeToggle" class="btn me-2 border border-primary">
+            <i id="themeIcon" class="bi-sun-fill"></i>
+        </button> -->
       </nav>
 
     <div class="container mb-3">
         <ul class="list-group">
 
             <li class="list-group-item">
-                <i class="fa-solid fa-microchip"></i>
-                <span id="kernel">{{ kernel }}</span>
+                <button type="button" class="btn" onclick='$("#systemInfo").toggle();'>System info</button>
             </li>
+
+            <div id="systemInfo" style="display: none;">
+                <li class="list-group-item">
+                    <i class="fa-solid bi-motherboard"></i>
+                    <span id="model">{{ model }}</span>
+                </li>
+                <li class="list-group-item">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span id="kernel">{{ kernel }}</span>
+                </li>
+            </div>
+
             <li class="list-group-item">
                 <i id="temperatureIcon" class="bi-thermometer"></i> <span id="temperature"></span>°C
             </li>
             <li class="list-group-item">
                 <i class="bi-cpu"></i> <span id="clock"></span> MHz
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item" id="fanLi">
                 <i id="fanIcon" class="fa-solid fa-fan"></i> <span id="fan_speed"></span> RPM
             </li>
             <li class="list-group-item">
@@ -49,7 +63,7 @@
                 </div>
             </li>
             <li class="list-group-item"><i class="bi-cpu"></i>
-                <div class="chart_container">
+                <div style="width: 60px; height: 60px;">
                     <canvas id="cpu_chart"></canvas>
                 </div>
             </li>

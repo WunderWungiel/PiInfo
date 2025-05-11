@@ -6,6 +6,9 @@ function set_value(name) {
 
 function set_fan() {
     $.get(`/api/get_fan_speed`, function (json) {
+        if (json["fan_speed"] === null) {
+            $("#fanLi").hide();
+        }
         const fan_speed = parseInt(json["fan_speed"]);
         $("#fan_speed").text(fan_speed);
         if (fan_speed > 0) {

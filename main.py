@@ -1,33 +1,58 @@
 import os
 import subprocess
+import json
+
+config = json.loads(open(os.path.join(os.path.dirname(os.path.realpath(__file__)), "config.json"), "r").read())
 
 import psutil
-from vcgencmd import Vcgencmd
+if config["DEVICE"] == "raspberry":
+    from vcgencmd import Vcgencmd
+    vcgm = Vcgencmd()
 
 from flask import Flask, render_template
 
 app = Flask(__name__)
-vcgm = Vcgencmd()
-
 
 class Info:
     def get_kernel(self):
         return subprocess.run(["uname", "-r"], capture_output=True, text=True).stdout.strip()
     
+    def get_model(self):
+
+        if config["DEVICE"] == "raspberry":
+            with open("/proc/cpuinfo", "r") as f:
+                return f.read().splitlines()[-1].split(":")[1].strip()
+        else:
+            return open("/sys/devices/virtual/dmi/id/product_name", "r").read().strip()
+
     def get_temperature(self):
-        return vcgm.measure_temp()
+
+        if config["DEVICE"] == "raspberry":
+            return vcgm.measure_temp()
+        else:
+            temps = psutil.sensors_temperatures()
+            return temps["coretemp"][0].current
     
     def get_clock(self):
-        return round(vcgm.measure_clock("arm") / (1000 * 1000))
+
+        if config["DEVICE"] == "raspberry":
+            return round(vcgm.measure_clock("arm") / (1000 * 1000))
+        else:
+            return round(psutil.cpu_freq().current)
         
     def get_fan_speed(self):
-        files = os.listdir("/sys/devices/platform/cooling_fan/hwmon")
-        if not files:
-            return 0
-        file_path = os.path.join("/sys/devices/platform/cooling_fan/hwmon", files[0], "fan1_input")
-        with open(file_path, "r") as f:
-            return int(f.read().strip())
 
+        if config["DEVICE"] == "raspberry":
+            files = os.listdir("/sys/devices/platform/cooling_fan/hwmon")
+            if not files:
+                return 0
+            file_path = os.path.join("/sys/devices/platform/cooling_fan/hwmon", files[0], "fan1_input")
+            with open(file_path, "r") as f:
+                return int(f.read().strip())
+        else:
+            fan_speed = psutil.sensors_fans()
+            return list(fan_speed.values())[0][0].current if fan_speed else None
+            
     def get_ram(self):
 
         ram_info = psutil.virtual_memory()
@@ -73,7 +98,7 @@ info = Info()
 @app.route("/")
 def _root():
 
-    return render_template("index.html", kernel=info.get_kernel(), disks=info.get_disks())
+    return render_template("index.html", model=info.get_model(), kernel=info.get_kernel(), disks=info.get_disks())
 
 @app.route("/api/get_temperature")
 def _get_temperature():
