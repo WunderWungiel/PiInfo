@@ -31,7 +31,10 @@ class Info:
             return vcgm.measure_temp()
         else:
             temps = psutil.sensors_temperatures()
-            return temps["coretemp"][0].current
+            try:
+                return temps["coretemp"][0].current
+            except KeyError:
+                return None
     
     def get_clock(self):
 
@@ -76,6 +79,9 @@ class Info:
         for disk in disks_list:
             
             device, mountpoint = disk[0], disk[1]
+            if mountpoint.startswith("/snap"): # Snap virtual mounts
+                continue
+
             usage = psutil.disk_usage(mountpoint)
 
             info[mountpoint] = {
